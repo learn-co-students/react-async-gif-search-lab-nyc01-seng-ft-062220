@@ -32,12 +32,14 @@ class GifListContainer extends React.Component{
         event.preventDefault()
         this.setState({ 
             submission: event.target.search.value 
-        })
-        fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.submission}&api_key=jSAfl3smgyyChxXci1w3801PhU4LzDEV`)
+        }, () => {
+            fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.submission}&api_key=jSAfl3smgyyChxXci1w3801PhU4LzDEV`)
             .then(response => response.json())
             .then(dataDolphins => {
                 this.setState({giphyResponse: dataDolphins.data})
             })
+        })
+        
     }
     
         
@@ -47,13 +49,15 @@ class GifListContainer extends React.Component{
         this.setState({searchterm: event.target.value},() => console.log(this.state.searchterm))
     }
     render (){
-        // console.log(this.state)
-        return <div>
+       
+        return (
+            <React.Fragment>
             <GifSearch filterSubmit={this.handleSubmit} valueProp={this.state.searchterm} onChangeSearch={this.changeHandler} /> 
             <h2>here is the gif list container</h2>
                 {this.renderDataDolphins()}
                 
-            </div>
+            </React.Fragment>
+        )
     }
 }
 
