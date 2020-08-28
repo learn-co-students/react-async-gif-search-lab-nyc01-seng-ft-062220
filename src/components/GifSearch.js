@@ -1,8 +1,12 @@
 import React from 'react';
 
-function GifSearch(){
+function GifSearch(props){
+
     return (
-        <h5>GifSearch</h5>
+        <form onSubmit={props.submitHandler}>
+            <input type="text" placeholder="search gifs" value={props.value} onChange={props.searchHandler}/>
+            <input type="submit" value="Search Gify" />
+        </form>
     )
 }
 
