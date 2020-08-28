@@ -5,20 +5,47 @@ import GifSearch from '../components/GifSearch'
 
 class GifListContainer extends React.Component {
 
-    
-
     state = {
-        gif: []
+        gif: [],
+        searchWord : "NYC"
     }
 
-    componentDidMount(){
-        let url = "https://api.giphy.com/v1/gifs/search?q=dolphin&api_key=9DbSABWzk2jhgAw5LaSDweGnJjPXuCt0&limit=3"
+    submitHandler = (e) => {
+        e.persist()
+        //console.log(e)
+        e.preventDefault()
+        
+        this.setState({
+            ...this.state,
+            searchWord: e.target.search.value
+        })
+    }
+
+    componentDidUpdate(){
+        let url = `https://api.giphy.com/v1/gifs/search?q=${this.state.searchWord}&api_key=9DbSABWzk2jhgAw5LaSDweGnJjPXuCt0&limit=3`
         fetch(url)
         .then(response => response.json())
         .then(bacon =>{
-            let results = bacon.data.map((obj)=> obj.url)
+            let results = bacon.data.map((obj)=> obj.images.original.url)
             this.setState({
+                ...this.state,
                 gif: results
+                
+            })
+    })
+}
+
+
+    componentDidMount(){
+        let url = `https://api.giphy.com/v1/gifs/search?q=${this.state.searchWord}&api_key=9DbSABWzk2jhgAw5LaSDweGnJjPXuCt0&limit=3`
+        fetch(url)
+        .then(response => response.json())
+        .then(bacon =>{
+            let results = bacon.data.map((obj)=> obj.images.original.url)
+            this.setState({
+                ...this.state,
+                gif: results
+                
             })
     })
 }
@@ -27,9 +54,10 @@ class GifListContainer extends React.Component {
     render() {
         return (
             <div>
-                <h1> Gif GifListContainer</h1>
+                
+                <GifSearch submitHandler={this.submitHandler}/>
                 <GifList card={this.state.gif}/>
-                <GifSearch />
+                
             </div>
         )
     }
