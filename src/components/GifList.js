@@ -5,14 +5,15 @@ class GifList extends React.Component {
     displayImages = () => {
         return(
                 this.props.gifs.map(gif => {
-                    <img alt="gif" src={gif}/>
+                    return <li><img alt="gif" src={gif}/></li>
                 })
             )
         }
 
     render() {
         return (
-            {displayImages()}
+            <ul>{this.displayImages()}</ul>
+            
         )
     }
 }

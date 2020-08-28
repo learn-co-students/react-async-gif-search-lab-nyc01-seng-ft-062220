@@ -16,6 +16,7 @@ class GifListContainer extends React.Component {
     submitHandler = (event) => {
         event.preventDefault()
         this.getGifs()
+        this.setState({searchQuery: ""})
     }
 
     render() {
@@ -30,19 +31,21 @@ class GifListContainer extends React.Component {
     mapImages = (gifObjs) => {
         return(
             gifObjs.map(gif =>{
-                gif.images.original.url
+                return gif.images.original.url
             })
         )
     }
 
     getGifs = () => {
-        fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.searchQuery}&api_key=m4WE3NaOwEviHSLd7Xj9JVSnIlHSzGDE&rating=g`)
+        fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.searchQuery}&api_key=m4WE3NaOwEviHSLd7Xj9JVSnIlHSzGDE&rating=g&limit=3`)
             .then(response => response.json())
             .then(newGifs => {
-                console.log(newGifs)
+                console.log("new gifts from fetch:", newGifs)
                 this.setState({
-                    gifs: this.mapImages(newGifs)
-            })
+                    gifs: this.mapImages(newGifs.data)
+            },
+            console.log(this.state.gifs))
+            
         })
     }
 }

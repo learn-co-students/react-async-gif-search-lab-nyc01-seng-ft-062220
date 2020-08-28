@@ -1,10 +1,9 @@
 import React from 'react'
 
-class GifSearch extends Reach.Component {
-   
+class GifSearch extends React.Component {
     render () {
         return(
-            <form onSubmit={this.props.submitHandler(event)}>
+            <form onSubmit={event => this.props.submitHandler(event)}>
                 Enter a search term:
                 <input 
                     id="search"
