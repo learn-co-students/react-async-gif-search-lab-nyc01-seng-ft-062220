@@ -6,7 +6,6 @@ class GifListContainer extends React.Component{
     
     state = {
         giphyResponse: [],
-        searchterm: '',
         submission: ''
     }
 
@@ -43,7 +42,6 @@ class GifListContainer extends React.Component{
     }
     
         
-        
 
     changeHandler = (event) => {
         this.setState({searchterm: event.target.value},() => console.log(this.state.searchterm))
@@ -52,7 +50,7 @@ class GifListContainer extends React.Component{
        
         return (
             <React.Fragment>
-            <GifSearch filterSubmit={this.handleSubmit} valueProp={this.state.searchterm} onChangeSearch={this.changeHandler} /> 
+            <GifSearch filterSubmit={this.handleSubmit} valueProp={this.state.searchterm} /> 
             <h2>here is the gif list container</h2>
                 {this.renderDataDolphins()}
                 
