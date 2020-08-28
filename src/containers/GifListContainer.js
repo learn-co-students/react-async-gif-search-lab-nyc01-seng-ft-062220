@@ -15,7 +15,7 @@ class GifListContainer extends React.Component {
         fetch("https://api.giphy.com/v1/gifs/search?q=dolphin&api_key=tfFszbbifOLiUXE1fs8GUfv9oKLJ8eQs&rating=g")
             .then(response => response.json())
             .then(apiData => this.setState({
-                firstThree: apiData.data.slice(0,3)
+                firstThree: apiData.data.slice(0,300)
             }))
     }
 
@@ -35,12 +35,15 @@ class GifListContainer extends React.Component {
 
     render() {
         return(
-            
+        <React.Fragment>
+            {this.state.firstThree.length === 0 ? <h1>Hang on, Loading Gifs...</h1> : 
             <React.Fragment>
                 <GifSearch searchVal={this.state.searchVal} submitHandler={this.submitHandler} onChangeHelper={this.onChangeHelper} />
                 <h1>Giflistcontainer reporting for duty!</h1>
                 <GifList gifData={this.state.firstThree}/>
             </React.Fragment>
+            }
+        </React.Fragment>
         )
     }
 
