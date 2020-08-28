@@ -1,15 +1,12 @@
 import React from 'react'
 
 class GifSearch extends React.Component {
-
-
     render() {
-
-        return(
-            <div>
-            <h3>Search</h3>
-            <input onChange={(e) => this.props.searchIteration(e)} type="text" placeholder="Search" value={this.props.searchValue}/>
-            </div>
+        return (
+            <React.Fragment>
+                <h3>Search</h3>
+                <input onChange={this.props.searchHandler} type="text" placeholder="img" value={this.props.value}/>
+            </React.Fragment>
         )
     }
 }
