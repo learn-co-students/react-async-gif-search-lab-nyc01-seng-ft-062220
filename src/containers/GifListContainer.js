@@ -6,7 +6,8 @@ class GifListContainer extends React.Component {
 
     state = {
         gifs: [],
-        searchQuery: ""
+        searchQuery: "",
+        limit: null
     }
 
     searchHandler = (event) => {
@@ -16,14 +17,15 @@ class GifListContainer extends React.Component {
     submitHandler = (event) => {
         event.preventDefault()
         this.getGifs()
-        this.setState({searchQuery: ""})
+        console.log("this.state.limit:", this.state.limit)
+        this.setState({searchQuery: "", limit: ""}, console.log("this.state.limit:", this.state.limit))
     }
 
     render() {
         return(
             <div>
                 <GifList gifs={this.state.gifs}/>
-                <GifSearch submitHandler={this.submitHandler} searchHandler={this.searchHandler} searchQuery={this.state.searchQuery}/>
+                <GifSearch submitHandler={this.submitHandler} searchHandler={this.searchHandler} searchQuery={this.state.searchQuery} limit={this.state.limit}/>
             </div>
         )
     }
@@ -37,7 +39,7 @@ class GifListContainer extends React.Component {
     }
 
     getGifs = () => {
-        fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.searchQuery}&api_key=m4WE3NaOwEviHSLd7Xj9JVSnIlHSzGDE&rating=g&limit=3`)
+        fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.searchQuery}&api_key=m4WE3NaOwEviHSLd7Xj9JVSnIlHSzGDE&rating=g&limit=${this.state.limit}`)
             .then(response => response.json())
             .then(newGifs => {
                 console.log("new gifts from fetch:", newGifs)

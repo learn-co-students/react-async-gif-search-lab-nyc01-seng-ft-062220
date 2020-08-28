@@ -15,6 +15,13 @@ class GifSearch extends React.Component {
                     onChange={this.props.searchHandler}
                     value={this.props.searchQuery}
                 />
+                How many GIFs would you like sir?
+                <input
+                    id="search"
+                    name="limit"
+                    onChange={this.props.searchHandler}
+                    value={this.props.limit}
+                />
                 <input type="submit" value="Find Gifs"/>
             </form>
         )
