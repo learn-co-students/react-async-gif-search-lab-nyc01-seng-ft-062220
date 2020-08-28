@@ -5,8 +5,7 @@ import GifSearch from '../components/GifSearch'
 class GifListContainer extends React.Component{
 
     state = {
-        gifs: [],
-        searchValue: ""
+        gifs: []
     }
     
     renderDolphins =()=>{
@@ -14,21 +13,14 @@ class GifListContainer extends React.Component{
     }
     
     componentDidMount(){
-        fetch("https://api.giphy.com/v1/gifs/search?q=dolphin&api_key=hhQklpKo6YAaJxm1usKdcvtUNTa1jL2l&rating=g&limit=3")
+        fetch("")
         .then(resp=>resp.json())
         .then(data => this.setState({gifs: data}))
     }
 
-    searchHandler=(e)=>{
-    
-        this.setState({
-            searchValue: e.target.value
-        })
-    }
-
-    submitHandler=(e)=>{
+    submitHandler=(e, searchValue)=>{
         e.preventDefault()
-        fetch(`https://api.giphy.com/v1/gifs/search?q=${this.state.searchValue}&api_key=hhQklpKo6YAaJxm1usKdcvtUNTa1jL2l&rating=g&limit=3`)
+        fetch(``)
         .then(resp=>resp.json())
         .then(data => this.setState({gifs: data}))
     }
@@ -43,7 +35,7 @@ class GifListContainer extends React.Component{
         // console.log("GifListContainer Render", this.state.gifs.data)
         return(
             <>
-                <GifSearch searchHandler={this.searchHandler} value={this.state.searchValue} submitHandler={this.submitHandler}/>
+                <GifSearch submitHandler={this.submitHandler}/>
                 <ul>
                     { this.state.gifs.length === 0 ? null : this.renderDolphins() }
                 </ul>
