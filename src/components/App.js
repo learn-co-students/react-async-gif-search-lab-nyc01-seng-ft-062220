@@ -11,26 +11,36 @@ let url = "https://api.giphy.com/v1/gifs/search?q=YOUR QUERY HERE&api_key=dc6zaT
 
 class App extends React.Component {
 
-    state = { gif: [] }
+    state = { gif: [],
+        search: []}
 
+    changeHandler = (obj) => {
 
-    submitHandler = (obj) => {
-
+        if (obj.length === 0) {
+            this.setState({
+                search: this.state.gif
+            })
+        } else {
+            let newArray = this.state.gif.filter(gif => gif.title.toLowerCase().includes(obj.toLowerCase()))
+            this.setState({
+                search: newArray
+            })
+        }
     }
 
     componentDidMount() {
         fetch(url)
             .then(res => res.json())
-            .then(gifs => this.setState({gif: gifs.data}))
+            .then(gifs => this.setState({gif: gifs.data, search: gifs.data}))
+
     }
 
     render() {
-
         return (
             <div>
                 <NavBar color='black' title="Giphy Search" />
-                <GifSearch submitHandler={this.submitHandler}/>
-                <GifList data={this.state.gif}/>
+                <GifSearch changeHandler={this.changeHandler}/>
+                <GifList data={this.state.search}/>
             </div>
         )
     }
